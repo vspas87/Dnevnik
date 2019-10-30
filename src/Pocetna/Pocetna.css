@@ -1,0 +1,30 @@
+h2 {
+    color:black; 
+    text-align: left;
+  }
+a {
+    color: blue;
+  }
+.box{
+    display: inline-block;
+    margin-left: 8cm;
+    margin-top: 5cm;
+  }
+.footer{
+    text-align: left;
+    color:black;
+    
+  }
+.logo{
+  widows: 7cm;
+  height: 3cm;
+}
+.login{
+  background-image: url(../Pocetna/dnevnik.jpg);
+  background-size: cover;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+  

@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "react": "^16.11.0",
+    "react-avatar-edit": "^0.8.3",
     "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0"
   },
   "scripts": {
@@ -26,6 +28,7 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
+    ],
+    "proxy": "http://localhost:8095"
   }
 }
