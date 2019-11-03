@@ -36,14 +36,15 @@ class AdminTable extends Component {
             method: 'GET',
             headers:{
                 'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
-                "Content-type": "application/json; charset=UTF-8"
+                "Content-type": "application/json; charset=UTF-8",
+                'Accept': 'application/json'
             }
         });
         if(response.ok) {
-            const users = await JSON.parse(response)
-            this.setState({users, isLoading: false})
+            const admins = await response.json();
+            this.setState({admins, isLoading: false})
         } else {
-            this.setState ({ isLoading: false, isError: true })
+            this.setState ({ isLoading: false, isError: true });
         }
     }
     render() {
@@ -77,10 +78,7 @@ renderTableData() {
             return(
                 <tr key={admin.id}>
                     <td>{admin.id}</td>
-                    <td>{admin.firstname}</td>
-                    <td>{admin.lastname}</td>
-                    <td><div onClick={() => this.handleDelete(admin.id)}>Delete</div></td>   
-                    <td><div onClick={() => this.handleEdit(admin.id)}>Edit</div></td> 
+                    <td>{admin.firstName}</td>
                 </tr>
             )
         })
@@ -90,15 +88,7 @@ renderTableHeader() {
         return header.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
         })
-    }
- handleDelete = (adminId) => {
-     const {admins, isLoading, isError} = this.state
-     if(isLoading) {
-         return <div>Loading....</div>
-     }
-     if( isError) {
-         return <div>Error.....</div>
+    
      }
     }
-}
     export default AdminTable;

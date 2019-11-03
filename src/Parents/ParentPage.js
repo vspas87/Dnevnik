@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import '../Parents/Parent.css'
-import {NavLink, BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
+import {NavLink, BrowserRouter, Route, Redirect, Switch, WithRouter} from 'react-router-dom'
 import MarkPage from '../Marks/MarkPage'
 import ProfilPage from '../Pages/ProfilPage'
 import ChildrenPage from '../Parents/ChildrenPage'
@@ -31,21 +31,39 @@ class ParentPage extends Component {
                 <h2>Welcome to PARENT page of "Elektronski Dnevnik!"</h2></div>
               <div className="bp ct">
                 <p>For more information about your children and marks, please choose in the following options:</p></div>
-              <button onClick={this.handleLogout}>Log off</button>
-              <button onClick={this.handleGoBack} className="goback">Back</button>
-
+              <button className="buttonTop" onClick={this.handleLogout}>Log off</button>
+              <button className="buttonTop" onClick={this.handleGoBack}>Back</button>
               <div className="cp ct">
-                <NavLink activeClassName="active" to="/children">Children</NavLink></div>
+                <NavLink activeClassName="active" className="button" to="/children">Children</NavLink></div>
               <div className="dp ct">
-                <NavLink activeClassName="active" to="/mark">Marks</NavLink></div>
+                <NavLink activeClassName="active" className="button" to="/mark">Marks</NavLink></div>
               <div className="ep ct">
-                <NavLink activeClassName="active" to="/profil">Profil</NavLink></div>
+                <NavLink activeClassName="active" className="button" to="/profil">Profil</NavLink></div>
+              <div className="gp ct">
               <Switch>
-                <Route exact path="/children" component={ChildrenPage}/>
-                <Route exact path="/mark" component={MarkPage}/>
-                <Route exact path="/profil" component={ProfilPage}/>
+                <Route 
+                  exact path="/children" 
+                  component={(props) => <ChildrenPage
+                    userId={this.props.userId}
+                    role={this.props.role}
+                    username={this.props.username}
+                    password={this.props.password}/>}/>
+                <Route 
+                  exact path="/mark" 
+                  component={(props) => <MarkPage 
+                    userId={this.props.userId}
+                    role={this.props.role}
+                    username={this.props.username}
+                    password={this.props.password}/>}/>
+                <Route 
+                  exact path="/profil" 
+                  component={(props) => <ProfilPage 
+                    userId={this.props.userId}
+                    role={this.props.role}
+                    username={this.props.username}
+                    password={this.props.password}/>}/>
               </Switch>
-              <div className="gp ct"></div>
+            </div>
             </div>
           </BrowserRouter>
         )

@@ -11,8 +11,8 @@ class StudentTable extends Component {
             firstName:'',
             lastName:'',
             id:'',
-            username:'vlatka',
-            password:'admin'
+            username:'',
+            password:''
 
         };
     }
@@ -48,17 +48,7 @@ class StudentTable extends Component {
         if(response.ok) {
             const student = await response.json();
             this.setState({student, isLoading: false})
-            //this.props.onLogin({
-             //       userId: user.USER_ID, 
-             //       role: user.role, 
-             //       isLoggedIn: true
-             //   })
-               // if (user.role === 'ROLE_STUDENT') {
-               //     this.props.history.push('/student')
-               // }
-               // else  {
-               //     this.props.history.push({PageNotFound})
-               // }
+        
         } else {
             this.setState ({ isLoading: false, isError: true })
         }

@@ -28,21 +28,39 @@ class StudentPage extends Component {
           return <Redirect to='/login' push={true} />;
           }
           return (
-           <BrowserRouter>
-            <div>
-              
-              <h2>Welcome to STUDENT page of "Elektronski Dnevnik"!</h2>
-              <h5>Your options:</h5>
-                <Link className='button' to="/profil">Profil</Link><br />
-                <Link className='button' to="/mark">Marks</Link><br/>
+              <div>
+              <BrowserRouter>
+              <div className="studentnavigation">
+                  <div className="studentruter">
+                  <h2>Welcome to STUDENT page of 'Elektronski Dnevnik!'</h2></div>
+                  <div className="studentoption">
+                  <p>For more information, please choose from following options:</p></div>
+                  <button className='buttonTop' onClick={this.handleLogout}>Log off</button>
+                  <button className='buttonTop' onClick={this.handleGoBack}>Go Back</button>
+                  <div className="ca ct">
+                  <NavLink className='button' to="/profil">Profil</NavLink></div>
+                  <div className="da ct">
+                  <NavLink className='button' to="/mark">Marks</NavLink></div>
+              <div className="ia ct">  
               <Switch/>
-                <Route exact path="/profil" component={ProfilPage}/>
-                <Route exact path="/mark" component={MarkPage}/>
+                <Route exact path="/profil" 
+                  component={(props) => <ProfilPage 
+                  userId={this.props.userId}
+                  role={this.props.role}
+                  username={this.props.username}
+                  password={this.props.password}/>}/>
+                <Route exact path="/mark" 
+                  component={(props) => <MarkPage
+                  userId={this.props.userId}
+                  role={this.props.role}
+                  username={this.props.username}
+                  password={this.props.password}/>}/>
               <Switch />
-              <button onClick={this.handleLogout} className='button'>Sign out</button>< br/>
-              <button onClick={this.handleGoBack} className="button">Back</button>
+              
+            </div>
             </div>
           </BrowserRouter>
+          </div>
             )
           }
     }

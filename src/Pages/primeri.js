@@ -9,9 +9,9 @@ import SubjectPage from '../Subject/SubjectPage'
 import ParentsPage from '../Admins/ParentsPage'
 import ProfilPage from '../Pages/ProfilPage'
 import AdminTable from '../Admins/AdminTable'
+import AppWithRouter from '../AppWithRouter'
 
-
-class AdminPage extends Component {
+class AdminPage2 extends Component {
   state={
       navigation: false
   }
@@ -32,9 +32,8 @@ class AdminPage extends Component {
         return <Redirect to='/login' push={true} />;
         }
         return(
-          <div>
           <BrowserRouter>
-          <div className="gridnavigation">
+            <div className="gridnavigation">
               <div className="aa ct">
               <h2>Welcome to ADMIN page of 'Elektronski Dnevnik!'</h2></div>
               <div className="ba ct">
@@ -56,71 +55,29 @@ class AdminPage extends Component {
               <div className="ja ct">
               <NavLink className='button' to="/department">Departments</NavLink></div>
               <div className="ga ct">
-              <NavLink className='button' to="/profil" >Profil</NavLink></div>
+              <NavLink className='button' 
+              to="/profil" 
+              username={this.props.username}
+              password={this.props.password}>Profil</NavLink></div>
           <div className="ia ct">  
           <Switch/>
-                <Route exact path="/student" 
-                  component={(props) => <StudentPage
-                  userId={this.props.userId}
-                  role={this.props.role}
-                  username={this.props.username}
-                  password={this.props.password}/>}/>
-
-                <Route exact path="/teacher" 
-                  component={(props) => <TeacherPage 
-                  userId={this.props.userId}
-                  role={this.props.role}
-                  username={this.props.username}
-                  password={this.props.password}/>}/>
-
-                <Route exact path="/parents" 
-                  component={(props) => <ParentsPage 
-                  userId={this.props.userId}
-                  role={this.props.role}
-                  username={this.props.username}
-                  password={this.props.password}/>}/>
-
-                <Route exact path="/admins" 
-                  component={(props) => <AdminTable 
-                  userId={this.props.userId}
-                  role={this.props.role}
-                  username={this.props.username}
-                  password={this.props.password}/>}/>   
-
-                <Route exact path="/subject" 
-                  component={(props) => <SubjectPage 
-                  userId={this.props.userId}
-                  role={this.props.role}
-                  username={this.props.username}
-                  password={this.props.password}/>}/>
-
-                <Route exact path="/class" 
-                  component={(props) => <ClassPage 
-                  userId={this.props.userId}
-                  role={this.props.role}
-                  username={this.props.username}
-                  password={this.props.password}/>}/>
-
-                <Route exact path="/department" 
-                  component={(props) => <DepartmentPage 
-                  userId={this.props.userId}
-                  role={this.props.role}
-                  username={this.props.username}
-                  password={this.props.password}/>}/>
-
-                <Route exact path="/profil" 
-                component={(props) => <ProfilPage 
-                userId={this.props.userId}
-                role={this.props.role}
+                <Route exact path="/student" component={StudentPage}/>
+                <Route exact path="/teacher" component={TeacherPage}/>
+                <Route exact path="/parents" component={ParentsPage}/>
+                <Route exact path="/admins" component={AdminTable}/>            
+                <Route exact path="/subject" component={SubjectPage}/>
+                <Route exact path="/class" component={ClassPage} />
+                <Route exact path="/department" component={DepartmentPage}/>
+                <Route exact path="/profil"
                 username={this.props.username}
-                password={this.props.password}/>}/>
-
-          <Switch/>          
+                password={this.props.password}
+                component={ProfilPage}/>
+                /*render={({staticContext, ...props}) => <ProfilPage {...props} />}/>*/
+          <Switch />          
           </div>
           </div>
           </BrowserRouter>
-          </div>
         )
       }
     }
-export default AdminPage;
+export default AdminPage2;

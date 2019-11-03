@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ParentPage from '../Parents/ParentPage'
 
 class ParentsPage extends Component {
     constructor(props){
@@ -7,25 +6,76 @@ class ParentsPage extends Component {
         this.state={
                 isLoading:false,
                 isError:false,
-                parents: []
-        }
+                parents: [],
+                selectedParent:null
+        };
+        this.handleCreate=this.handleCreate.bind(this);
+        this.handleEdit= this.handleEdit.bind(this);
+        this.handleDelete= this.handleDelete.bind(this);
     }
-    async componentDidMount() {
-        this.setState({ isLoading: true});
-        const response = await fetch('http://localhost:8095/dnevnik/parent',{
-            method: 'GET',
-            headers:{
+ 
+    handleCreate = (parent) => this.setState({isCreateClick : true})
+    handleEdit= (parent) => this.setState({ selectedParent : parent})
+    handleDelete= async (parent)=> {
+        const response = await fetch('http://localhost:8095/dnevnik/parent/'+ parent.id, {
+            method: 'DELETE',
+            headers: {
                 'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
-                "Content-type": "application/json; charset=UTF-8"
-            }
+                "Content-type": "application/json; charset=UTF-8",
+                'Accept': 'application/json'
+            },
+            mode:'cors'
+        } );
+        this.componentDidMount();
+    }
+    handleEditSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch ('http://localhost:8095/dnevnik/parent/' + this.state.selectedParent.id, {
+            method: 'PUT',
+            body: JSON.stringify(this.state.selectedParent),
+            headers: {
+                    'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
+                    "Content-type": "application/json; charset=UTF-8",
+                    'Accept': 'application/json'
+        },
+        mode:'cors'
         });
+        this.setState({selectedParent : null})
+    this.componentDidMount();
+    }
+    handleCreateSubmit = async (e) => {
+        e.preventDefault()
+        const response = await fetch('http://localhost:8095/dnevnik/parent', {
+            method:'POST',
+            body: JSON.stringify(this.state.newParent),
+            headers: {
+                'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
+                "Content-type": "application/json; charset=UTF-8",
+                'Accept': 'application/json'
+            },
+            mode:'cors'
+        });
+        this.setState({ isCreateClick: false, newParent: null})
+        this.componentDidMount();
+    }
+        async componentDidMount() {
+            this.setState({ isLoading:true});
+            const response= await fetch('http://localhost:8095/dnevnik/parent', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
+                    "Content-type": "application/json; charset=UTF-8",
+                    'Accept': 'application/json'
+                }
+            });
         if(response.ok) {
-            const users = await JSON.parse(response)
-            this.setState({users, isLoading: false})
+            const parents = await response.json();
+            this.setState({parents, isLoading: false})
         } else {
-            this.setState ({ isLoading: false, isError: true })
+            this.setState ({ isLoading: false, isError: true });
         }
     }
+    
     render() {
         const {parents, isLoading, isError} = this.state;
         if(isLoading) {
@@ -38,7 +88,7 @@ class ParentsPage extends Component {
         return parents.length > 0
             ? (
                 <div>
-                    <h1 id="title">All parents</h1>
+                    <h3 id="title">All parents</h3>
                   <table id='users'>
                       <thead>
                             <tr>{this.renderTableHeader()}</tr>
@@ -59,6 +109,12 @@ renderTableData() {
                     <td>{parent.id}</td>
                     <td>{parent.firstName}</td>
                     <td>{parent.lastName}</td>
+                    <td>{parent.email}</td>
+                    <td>{parent.user.USER_ID}</td>
+                    <td>{parent.user.username}</td>
+                    <td><button onClick={() => this.handleCreate(parent)}>Create</button></td>
+                    <td><button onClick={() => this.handleEdit(parent)}>Edit</button></td>
+                    <td><button onClick={() => this.handleDelete(parent)}>Delete</button></td>
                 </tr>
             )
         })
@@ -70,4 +126,4 @@ renderTableHeader() {
         })
     }
 }
-export default ParentPage;
+export default ParentsPage;

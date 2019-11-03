@@ -7,7 +7,6 @@ import TeacherPage from './Teachers/TeacherPage'
 import StudentPage from './Students/StudentPage'
 import ParentPage from './Parents/ParentPage'
 import PageNotFound from './Pages/PageNotFound'
-import ProfilPage from './Pages/ProfilPage'
 
 
 class AppWithRouter extends Component {
