@@ -35,8 +35,6 @@ class ParentPage extends Component {
               <button className="buttonTop" onClick={this.handleGoBack}>Back</button>
               <div className="cp ct">
                 <NavLink activeClassName="active" className="button" to="/children">Children</NavLink></div>
-              <div className="dp ct">
-                <NavLink activeClassName="active" className="button" to="/mark">Marks</NavLink></div>
               <div className="ep ct">
                 <NavLink activeClassName="active" className="button" to="/profil">Profil</NavLink></div>
               <div className="gp ct">
@@ -44,13 +42,6 @@ class ParentPage extends Component {
                 <Route 
                   exact path="/children" 
                   component={(props) => <ChildrenPage
-                    userId={this.props.userId}
-                    role={this.props.role}
-                    username={this.props.username}
-                    password={this.props.password}/>}/>
-                <Route 
-                  exact path="/mark" 
-                  component={(props) => <MarkPage 
                     userId={this.props.userId}
                     role={this.props.role}
                     username={this.props.username}

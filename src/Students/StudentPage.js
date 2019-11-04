@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import '../Students/Student.css'
 import {NavLink, Link} from 'react-router-dom'
 import {BrowserRouter,Route, Redirect, Switch} from 'react-router-dom'
-import ProfilPage from '../Pages/ProfilPage'
 import MarkPage from '../Marks/MarkPage';
-
+import ProfilPage from '../Pages/ProfilPage'
+import ProfilStudent from '../Students/ProfilStudent'
 
 class StudentPage extends Component {
     state={
@@ -44,7 +44,7 @@ class StudentPage extends Component {
               <div className="ia ct">  
               <Switch/>
                 <Route exact path="/profil" 
-                  component={(props) => <ProfilPage 
+                  component={(props) => <ProfilPage
                   userId={this.props.userId}
                   role={this.props.role}
                   username={this.props.username}

@@ -26,7 +26,7 @@ class ParentsPage extends Component {
             },
             mode:'cors'
         } );
-        this.componentDidMount();
+        //this.setState({})
     }
     handleEditSubmit = async (e) => {
         e.preventDefault();
@@ -41,9 +41,9 @@ class ParentsPage extends Component {
         mode:'cors'
         });
         this.setState({selectedParent : null})
-    this.componentDidMount();
+    //this.componentDidMount();
     }
-    handleCreateSubmit = async (e) => {
+    handleCreateSubmit = async (e, parent) => { debugger;
         e.preventDefault()
         const response = await fetch('http://localhost:8095/dnevnik/parent', {
             method:'POST',
@@ -56,7 +56,7 @@ class ParentsPage extends Component {
             mode:'cors'
         });
         this.setState({ isCreateClick: false, newParent: null})
-        this.componentDidMount();
+        //this.componentDidMount();
     }
         async componentDidMount() {
             this.setState({ isLoading:true});
@@ -112,9 +112,9 @@ renderTableData() {
                     <td>{parent.email}</td>
                     <td>{parent.user.USER_ID}</td>
                     <td>{parent.user.username}</td>
-                    <td><button onClick={() => this.handleCreate(parent)}>Create</button></td>
-                    <td><button onClick={() => this.handleEdit(parent)}>Edit</button></td>
-                    <td><button onClick={() => this.handleDelete(parent)}>Delete</button></td>
+                    <td><button onClick={(e) => this.handleCreateSubmit(e, parent)}>Create</button></td>
+                    <td><button onClick={(e) => this.handleEditSubmit(e, parent)}>Edit</button></td>
+                    <td><button onClick={(e) => this.handleDelete(parent)}>Delete</button></td>
                 </tr>
             )
         })

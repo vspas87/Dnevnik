@@ -1,23 +1,23 @@
-import React , {Component} from 'react';
-import '../Parents/ChildrenPage.css'
+import React, {Component} from 'react';
 
-class ChildrenPage extends Component {
+
+class ProfilStudent extends Component {
     constructor(props){
-        super(props);
+        super(props)
         this.state={
                 isLoading:false,
                 isError:false,
-                students: []
+                students: [],
         };
     }
         async componentDidMount() {
             this.setState({ isLoading:true});
-            const response= await fetch('http://localhost:8095/dnevnik/grading/parent', {
+            const response= await fetch('http://localhost:8095/dnevnik/student/profil', {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
                     "Content-type": "application/json; charset=UTF-8",
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
                 }
             });
         if(response.ok) {
@@ -34,13 +34,13 @@ class ChildrenPage extends Component {
             return <div>Loading...</div> 
         }
         if(isError){
-            return <div>Error....or doesnt have any grades</div>
+            return <div>Error....</div>
         }
-    
+
         return students.length > 0
             ? (
                 <div>
-                    <h3>Your child grades for 2019/2020</h3>
+                    <h3>Your profile information:</h3>
                   <table className="tablemark">
                       <thead>
                             <tr>{this.renderTableHeader()}</tr>
@@ -57,13 +57,10 @@ class ChildrenPage extends Component {
 renderTableData() {
         return this.state.students.map((student) => {
             return(
-                <tr key={student.GRADING_ID} >
-                    <td>{student.GRADING_ID}</td>
-                    <td>{student.examType}</td>
-                    <td>{student.examDate}</td>
-                    <td>{student.examGrade}</td>
-                    <td>{student.teacher.lastName}</td>
-                    <td>{student.teacher.subject.name}</td>
+                <tr key={student.id} >
+                    <td>{student.id}</td>
+                    <td>{student.firstName}</td>
+                    <td>{student.parent.email}</td>
                 </tr>
             )
         })
@@ -75,4 +72,4 @@ renderTableHeader() {
         })
     }
 }
-export default ChildrenPage;
+export default ProfilStudent;

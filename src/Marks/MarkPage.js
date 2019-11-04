@@ -63,7 +63,6 @@ renderTableData() {
                     <td>{student.examType}</td>
                     <td>{student.examDate}</td>
                     <td>{student.examGrade}</td>
-                    <td>{student.teacher.firstName}</td>
                     <td>{student.teacher.lastName}</td>
                     <td>{student.teacher.subject.name}</td>
                 </tr>

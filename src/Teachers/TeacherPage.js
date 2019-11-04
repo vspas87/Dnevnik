@@ -30,37 +30,69 @@ class TeacherPage extends Component {
           return <Redirect to='/login' push={true} />;
           }
           return(
+              <div>
               <BrowserRouter>
-                <div>
+                <div className="teachernavigation">
+                    <div className="teacheruter">
                     <h2>Welcome to the TEACHERS page of "Elektronski Dnevnik!"</h2>
-                    <p>For more information about classes, departments, students and their grades, please choose in following options:</p>
-              <button onClick={this.handleLogout}>Logout</button>
-              <button onClick={this.handleGoBack}>GoBack</button>
-              <ul>
-                <li>
-                    <NavLink activeClassName="active" to="/class">Classes</NavLink></li>
-                <li>
-                    <NavLink activeClassName="active" to="/department">Departments</NavLink></li>
-                <li>
-                    <NavLink activeClassName="active" to="/subjects">Subjects</NavLink></li>
-                <li>
-                    <NavLink activeClassName="active" to="/students">Students</NavLink></li>
-                <li>
-                    <NavLink activeClassName="active" to="/mark">Marks</NavLink></li>
-                <li>
-                    <NavLink activeClassName="active" to="/profil">Profil</NavLink></li>
-              </ul>
-              <Switch>
-                    <Route exact path="/class" component={ClassPage}/>
-                    <Route exact path="/department" component={DepartmentPage}/>
-                    <Route exact path="/subject" component={SubjectPage}/>
-                    <Route exact path="/student" component={StudentPage}/>
-                    <Route exact path="/mark" component={MarkPage}/>
-                    <Route exact path="/profil" component={ProfilPage}/>
-              </Switch>
-              <div className="TeachersPano"></div>
+                    </div>
+                    <div className="teacheroption"><p><b>For more information about subjects, 
+                        classes , students and their grades, please choose in following options:</b></p>
+                    </div>
+                    <button onClick={this.handleLogout} className="buttonTop">Logout</button>
+                    <button onClick={this.handleGoBack} className="buttonTop">GoBack</button>
+                    <div className="aa ct">
+                    <NavLink className="button" activeClassName="active" to="/class">Classes</NavLink>
+                    </div>
+                    <div className="ba ct">
+                    <NavLink className="button" activeClassName="active" to="/department">Departments</NavLink>
+                    </div>
+                    <div className="ca ct">
+                    <NavLink className="button" activeClassName="active" to="/subjects">Subjects</NavLink>
+                    </div>
+                    <div className="ea ct">
+                    <NavLink className="button" activeClassName="active" to="/mark">Marks</NavLink>
+                    </div>
+                    <div className="fa ct">
+                    <NavLink className="button" activeClassName="active" to="/profil">Profil</NavLink>
+                    </div>
+                    <div className="ha ct">
+              <Switch/>
+                    <Route exact path="/class" 
+                    component={(props) => <ClassPage
+                        userId={this.props.userId}
+                        role={this.props.role}
+                        username={this.props.username}
+                        password={this.props.password}/>}/>
+                    <Route exact path="/department" 
+                    component={(props) => <DepartmentPage
+                        userId={this.props.userId}
+                        role={this.props.role}
+                        username={this.props.username}
+                        password={this.props.password}/>}/>
+                    <Route exact path="/subject" 
+                    component={(props) => <SubjectPage
+                        userId={this.props.userId}
+                        role={this.props.role}
+                        username={this.props.username}
+                        password={this.props.password}/>}/>
+                    <Route exact path="/mark" 
+                    component={(props) => <MarkPage
+                        userId={this.props.userId}
+                        role={this.props.role}
+                        username={this.props.username}
+                        password={this.props.password}/>}/>
+                    <Route exact path="/profil" 
+                    component={(props) => <ProfilPage
+                        userId={this.props.userId}
+                        role={this.props.role}
+                        username={this.props.username}
+                        password={this.props.password}/>}/>
+              <Switch />
+            </div>
            </div>
            </BrowserRouter>
+           </div>
         )
     }
     }
