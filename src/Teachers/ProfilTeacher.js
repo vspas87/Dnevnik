@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 
-class SubjectPage extends Component {
+class ProfilTeacher extends Component {
     constructor(){
         super();
         this.state={
@@ -11,7 +11,7 @@ class SubjectPage extends Component {
     }
     async componentDidMount() {
         this.setState({isLoading:true});
-        const response = await fetch('http://localhost:8095/dnevnik/teacher/subject', {
+        const response = await fetch('http://localhost:8095/dnevnik/teacher/profil', {
             method: 'GET',
             headers: {
                 'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
@@ -39,22 +39,30 @@ class SubjectPage extends Component {
         return teachers.length > 0
             ? (
                 <div>
-                    <h3>Your subjects</h3>
+                    <h3>Your profile</h3>
                   <table className="tablemark">
                       <thead>
                             <tr>
-                                <th>Subject ID</th>
-                                <th>Name</th>
-                                <th>Weekly Fund</th>
+                                <th>ID</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>User ID Number</th>
+                                <th>Username</th>
+                                <th>Subject name</th>
+                                <th>Subject weekly fund</th>
                             </tr>
                       </thead>
                       <tbody>
                       {this.state.teachers.map((teacher) => {
                         return(
-                            <tr key={teacher.SUBJECT_ID} >
-                                <td>{teacher.SUBJECT_ID}</td>
-                                <td>{teacher.name}</td>
-                                <td>{teacher.weeklyFund}</td>
+                            <tr key={teacher.id} >
+                                <td>{teacher.id}</td>
+                                <td>{teacher.firstName}</td>
+                                <td>{teacher.lastName}</td>
+                                <td>{teacher.user.USER_ID}</td>
+                                <td>{teacher.user.username}</td>
+                                <td>{teacher.subject.name}</td>
+                                <td>{teacher.subject.weeklyFund}</td>
                             </tr>
                             )
                         })
@@ -67,4 +75,4 @@ class SubjectPage extends Component {
         }
         
 }
-export default SubjectPage;
+export default ProfilTeacher;

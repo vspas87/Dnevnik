@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import '../Admins/Admin.css'
 import {NavLink, Route, Redirect, BrowserRouter, Switch, WithRouter} from 'react-router-dom'
-import StudentPage from '../Students/StudentPage'
-import TeacherPage from '../Teachers/TeacherPage'
+import AdminStudent from '../Admins/AdminStudent'
+import AdminTeacher from '../Admins/AdminTeacher'
 import ClassPage from '../Class/ClassPage'
 import DepartmentPage from '../Department/DepartmentPage'
 import SubjectPage from '../Subject/SubjectPage'
@@ -35,39 +35,39 @@ class AdminPage extends Component {
           <div>
           <BrowserRouter>
           <div className="gridnavigation">
-              <div className="aa ct">
+              <div className="aaa ct">
               <h2>Welcome to ADMIN page of 'Elektronski Dnevnik!'</h2></div>
-              <div className="ba ct">
+              <div className="baa ct">
               <p>For more information, please choose from following options:</p></div>
               <button className='buttonTop' onClick={this.handleLogout}>Log off</button>
               <button className='buttonTop' onClick={this.handleGoBack}>Go Back</button>
-              <div className="ca ct">
+              <div className="caa ct">
               <NavLink className='button' to="/student">Students</NavLink></div>
-              <div className="da ct">
+              <div className="daa ct">
               <NavLink className='button' to="/teacher">Teachers</NavLink></div>
-              <div className="ea ct">
+              <div className="eaa ct">
               <NavLink className='button' to="/parents">Parents</NavLink></div>
-              <div className="fa ct">
+              <div className="faa ct">
               <NavLink className='button' to="/admins">Admins</NavLink></div>
-              <div className="ta ct">
+              <div className="taa ct">
               <NavLink className='button' to="/subject">Subjects</NavLink></div>
-              <div className="ra ct">
+              <div className="raa ct">
               <NavLink className='button' to="/class">Classes</NavLink></div>
-              <div className="ja ct">
+              <div className="jaa ct">
               <NavLink className='button' to="/department">Departments</NavLink></div>
-              <div className="ga ct">
+              <div className="gaa ct">
               <NavLink className='button' to="/profil" >Profil</NavLink></div>
-          <div className="ia ct">  
+          <div className="iaa ct">  
           <Switch/>
                 <Route exact path="/student" 
-                  component={(props) => <StudentPage
+                  component={(props) => <AdminStudent
                   userId={this.props.userId}
                   role={this.props.role}
                   username={this.props.username}
                   password={this.props.password}/>}/>
 
                 <Route exact path="/teacher" 
-                  component={(props) => <TeacherPage 
+                  component={(props) => <AdminTeacher 
                   userId={this.props.userId}
                   role={this.props.role}
                   username={this.props.username}

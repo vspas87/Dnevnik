@@ -3,11 +3,8 @@ import '../Teachers/Teacher.css'
 import {NavLink} from 'react-router-dom'
 import {Route,BrowserRouter, Switch, Redirect} from 'react-router-dom'
 import ClassPage from '../Class/ClassPage'
-import DepartmentPage from '../Department/DepartmentPage'
-import MarkPage from '../Marks/MarkPage'
 import SubjectPage from '../Subject/SubjectPage'
-import StudentPage from '../Students/StudentPage'
-import ProfilPage from '../Pages/ProfilPage'
+import ProfilTeacher from '../Teachers/ProfilTeacher'
 
 
 class TeacherPage extends Component {
@@ -45,15 +42,9 @@ class TeacherPage extends Component {
                     <NavLink className="button" activeClassName="active" to="/class">Classes</NavLink>
                     </div>
                     <div className="ba ct">
-                    <NavLink className="button" activeClassName="active" to="/department">Departments</NavLink>
+                    <NavLink className="button" activeClassName="active" to="/subject">Subjects</NavLink>
                     </div>
                     <div className="ca ct">
-                    <NavLink className="button" activeClassName="active" to="/subjects">Subjects</NavLink>
-                    </div>
-                    <div className="ea ct">
-                    <NavLink className="button" activeClassName="active" to="/mark">Marks</NavLink>
-                    </div>
-                    <div className="fa ct">
                     <NavLink className="button" activeClassName="active" to="/profil">Profil</NavLink>
                     </div>
                     <div className="ha ct">
@@ -64,26 +55,14 @@ class TeacherPage extends Component {
                         role={this.props.role}
                         username={this.props.username}
                         password={this.props.password}/>}/>
-                    <Route exact path="/department" 
-                    component={(props) => <DepartmentPage
-                        userId={this.props.userId}
-                        role={this.props.role}
-                        username={this.props.username}
-                        password={this.props.password}/>}/>
                     <Route exact path="/subject" 
                     component={(props) => <SubjectPage
                         userId={this.props.userId}
                         role={this.props.role}
                         username={this.props.username}
                         password={this.props.password}/>}/>
-                    <Route exact path="/mark" 
-                    component={(props) => <MarkPage
-                        userId={this.props.userId}
-                        role={this.props.role}
-                        username={this.props.username}
-                        password={this.props.password}/>}/>
                     <Route exact path="/profil" 
-                    component={(props) => <ProfilPage
+                    component={(props) => <ProfilTeacher
                         userId={this.props.userId}
                         role={this.props.role}
                         username={this.props.username}

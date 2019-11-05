@@ -1,7 +1,6 @@
 import React , {Component} from 'react';
-import '../Parents/ChildrenPage.css'
 
-class ChildrenPage extends Component {
+class AdminTeacher extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -12,7 +11,7 @@ class ChildrenPage extends Component {
     }
         async componentDidMount() {
             this.setState({ isLoading:true});
-            const response= await fetch('http://localhost:8095/dnevnik/grading/parent', {
+            const response= await fetch('http://localhost:8095/dnevnik/teacher', {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
@@ -40,7 +39,7 @@ class ChildrenPage extends Component {
         return students.length > 0
             ? (
                 <div>
-                    <h3>Your child grades for 2019/2020</h3>
+                    <h3>All teachers for 2019/2020</h3>
                   <table className="tablemark">
                       <thead>
                             <tr>{this.renderTableHeader()}</tr>
@@ -57,14 +56,12 @@ class ChildrenPage extends Component {
 renderTableData() {
         return this.state.students.map((student) => {
             return(
-                <tr key={student.GRADING_ID} >
-                    <td>{student.GRADING_ID}</td>
-                    <td>{student.examType}</td>
-                    <td>{student.examDate}</td>
-                    <td>{student.examGrade}</td>
-                    <td>{student.teacher.lastName}</td>
-                    <td>{student.teacher.subject.name}</td>
-                    <td>{student.student.firstName}</td>
+                <tr key={student.id} >
+                    <td>{student.id}</td>
+                    <td>{student.firstName}</td>
+                    <td>{student.lastName}</td>
+                    <td>{student.user.username}</td>
+                    <td>{student.subject.name}</td>
                 </tr>
             )
         })
@@ -76,4 +73,4 @@ renderTableHeader() {
         })
     }
 }
-export default ChildrenPage;
+export default AdminTeacher;

@@ -1,17 +1,17 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 
-class SubjectPage extends Component {
+class ProfilParent extends Component {
     constructor(){
         super();
         this.state={
                 isLoading:false,
                 isError:false,
-                teachers: []
+                parents: []
         };
     }
     async componentDidMount() {
         this.setState({isLoading:true});
-        const response = await fetch('http://localhost:8095/dnevnik/teacher/subject', {
+        const response = await fetch('http://localhost:8095/dnevnik/parent/profil', {
             method: 'GET',
             headers: {
                 'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
@@ -20,15 +20,15 @@ class SubjectPage extends Component {
             }
         });
         if(response.ok) {
-            const teachers= await response.json();
-            this.setState({teachers, isLoading:false})
+            const parents= await response.json();
+            this.setState({parents, isLoading:false})
         } else {
             this.setState({isLoading:false, isError:true})
         }
     }
 
     render() {
-        const {teachers, isLoading, isError} = this.state;
+        const {parents, isLoading, isError} = this.state;
         if(isLoading) {
             return <div>Loading...</div> 
         }
@@ -36,25 +36,31 @@ class SubjectPage extends Component {
             return <div>Error....</div>
         }
 
-        return teachers.length > 0
+        return parents.length > 0
             ? (
                 <div>
-                    <h3>Your subjects</h3>
+                    <h3>Your profile</h3>
                   <table className="tablemark">
                       <thead>
                             <tr>
-                                <th>Subject ID</th>
-                                <th>Name</th>
-                                <th>Weekly Fund</th>
+                                <th>ID</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>Email</th>
+                                <th>User ID Number</th>
+                                <th>Username</th>
                             </tr>
                       </thead>
                       <tbody>
-                      {this.state.teachers.map((teacher) => {
+                      {this.state.parents.map((parent) => {
                         return(
-                            <tr key={teacher.SUBJECT_ID} >
-                                <td>{teacher.SUBJECT_ID}</td>
-                                <td>{teacher.name}</td>
-                                <td>{teacher.weeklyFund}</td>
+                            <tr key={parent.id} >
+                                <td>{parent.id}</td>
+                                <td>{parent.firstName}</td>
+                                <td>{parent.lastName}</td>
+                                <td>{parent.email}</td>
+                                <td>{parent.user.USER_ID}</td>
+                                <td>{parent.user.username}</td>
                             </tr>
                             )
                         })
@@ -67,4 +73,4 @@ class SubjectPage extends Component {
         }
         
 }
-export default SubjectPage;
+export default ProfilParent;

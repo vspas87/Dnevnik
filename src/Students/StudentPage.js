@@ -44,7 +44,7 @@ class StudentPage extends Component {
               <div className="ia ct">  
               <Switch/>
                 <Route exact path="/profil" 
-                  component={(props) => <ProfilPage
+                  component={(props) => <ProfilStudent
                   userId={this.props.userId}
                   role={this.props.role}
                   username={this.props.username}

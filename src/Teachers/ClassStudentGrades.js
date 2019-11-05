@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-class SubjectPage extends Component {
+class ClassStudentGrades extends Component {
     constructor(){
         super();
         this.state={
@@ -11,7 +11,7 @@ class SubjectPage extends Component {
     }
     async componentDidMount() {
         this.setState({isLoading:true});
-        const response = await fetch('http://localhost:8095/dnevnik/teacher/subject', {
+        const response = await fetch('http://localhost:8095/dnevnik/teacher/student/grades', {
             method: 'GET',
             headers: {
                 'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
@@ -39,22 +39,32 @@ class SubjectPage extends Component {
         return teachers.length > 0
             ? (
                 <div>
-                    <h3>Your subjects</h3>
+                    <h3>In following are shown your teaching classes, student and their given grades</h3>
                   <table className="tablemark">
                       <thead>
                             <tr>
-                                <th>Subject ID</th>
-                                <th>Name</th>
-                                <th>Weekly Fund</th>
+                                <th>Class Name</th>
+                                <th>Student Name</th>
+                                <th>Student Lastname</th>
+                                <th>Grading id</th>
+                                <th>Exam Type</th>
+                                <th>Exam Grade</th>
+                                <th>Exam Date</th>
+                                <th>Subject Name</th>
                             </tr>
                       </thead>
                       <tbody>
                       {this.state.teachers.map((teacher) => {
                         return(
-                            <tr key={teacher.SUBJECT_ID} >
-                                <td>{teacher.SUBJECT_ID}</td>
-                                <td>{teacher.name}</td>
-                                <td>{teacher.weeklyFund}</td>
+                            <tr key={teacher.GRADING_ID} >
+                                <td>{teacher.student.schoolClass.className}</td>
+                                <td>{teacher.student.firstName}</td>
+                                <td>{teacher.student.lastName}</td>
+                                <td>{teacher.GRADING_ID}</td>
+                                <td>{teacher.examType}</td>
+                                <td>{teacher.examGrade}</td>
+                                <td>{teacher.examDate}</td>
+                                <td>{teacher.subject.name}</td>
                             </tr>
                             )
                         })
@@ -67,4 +77,4 @@ class SubjectPage extends Component {
         }
         
 }
-export default SubjectPage;
+export default ClassStudentGrades;

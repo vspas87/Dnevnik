@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import '../Parents/Parent.css'
 import {NavLink, BrowserRouter, Route, Redirect, Switch, WithRouter} from 'react-router-dom'
 import MarkPage from '../Marks/MarkPage'
-import ProfilPage from '../Pages/ProfilPage'
+import ProfilParent from '../Parents/ProfilParent'
 import ChildrenPage from '../Parents/ChildrenPage'
 
 class ParentPage extends Component {
@@ -48,7 +48,7 @@ class ParentPage extends Component {
                     password={this.props.password}/>}/>
                 <Route 
                   exact path="/profil" 
-                  component={(props) => <ProfilPage 
+                  component={(props) => <ProfilParent 
                     userId={this.props.userId}
                     role={this.props.role}
                     username={this.props.username}
