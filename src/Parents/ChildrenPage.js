@@ -43,8 +43,16 @@ class ChildrenPage extends Component {
                     <h3>Your child grades for 2019/2020</h3>
                   <table className="tablemark">
                       <thead>
-                            <tr>{this.renderTableHeader()}</tr>
-                      </thead>
+                             <tr>
+                             <th>Exam Type</th>
+                             <th>Exam Date</th>
+                             <th>Exam Grade</th>
+                             <th>Teacher</th>
+                             <th>Subject</th>
+                             <th>Student name</th>
+                             <th>Class</th>
+                          </tr>
+                        </thead>
                       <tbody>
                           {this.renderTableData()}
                       </tbody>
@@ -58,21 +66,15 @@ renderTableData() {
         return this.state.students.map((student) => {
             return(
                 <tr key={student.GRADING_ID} >
-                    <td>{student.GRADING_ID}</td>
                     <td>{student.examType}</td>
                     <td>{student.examDate}</td>
                     <td>{student.examGrade}</td>
                     <td>{student.teacher.lastName}</td>
                     <td>{student.teacher.subject.name}</td>
                     <td>{student.student.firstName}</td>
+                    <td>{student.student.schoolClass.className}</td>
                 </tr>
             )
-        })
-    }
-renderTableHeader() {
-        const header = Object.keys(this.state.students[0]);
-        return header.map((key, index) => {
-            return <th key={index}>{key.toUpperCase()}</th>
         })
     }
 }

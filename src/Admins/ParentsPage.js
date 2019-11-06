@@ -88,7 +88,14 @@ class ParentsPage extends Component {
         return parents.length > 0
             ? (
                 <div>
-                    <h3 id="title">All parents</h3>
+                    
+                    <p>If you would like to add new parent, please click below:
+                    <br/>
+                    <td><button onClick={(e) => this.handleCreateSubmit(e)}>Create</button></td>
+                    </p>
+                    <p>For update or delete parent information, please click to wright button:</p>
+                    <br/>
+                    <h3 id="title">All parents of students for 2019/2020</h3>
                   <table id='users'>
                       <thead>
                             <tr>{this.renderTableHeader()}</tr>
@@ -111,8 +118,6 @@ renderTableData() {
                     <td>{parent.lastName}</td>
                     <td>{parent.email}</td>
                     <td>{parent.user.USER_ID}</td>
-                    <td>{parent.user.username}</td>
-                    <td><button onClick={(e) => this.handleCreateSubmit(e, parent)}>Create</button></td>
                     <td><button onClick={(e) => this.handleEditSubmit(e, parent)}>Edit</button></td>
                     <td><button onClick={(e) => this.handleDelete(parent)}>Delete</button></td>
                 </tr>

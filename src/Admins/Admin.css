@@ -40,7 +40,7 @@ background-size: cover;
     text-align: center;
 }
 .gaa{grid-row:3;
-    grid-column:8;
+    grid-column:7;
     text-align: center;
 }
 .haa{grid-row:3;
@@ -48,10 +48,6 @@ background-size: cover;
     text-align: center;
 }
 .taa{grid-row:3;
-    grid-column:7;
-    text-align: center;
-}
-.jaa{grid-row:3;
     grid-column:6;
     text-align: center;
 }

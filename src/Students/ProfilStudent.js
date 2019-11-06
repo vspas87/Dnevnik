@@ -39,7 +39,7 @@ class ProfilStudent extends Component {
         return students.length > 0
             ? (
                 <div>
-                    <h3>Your profile</h3>
+                    <h3>Your profile information</h3>
                   <table className="tablemark">
                       <thead>
                             <tr>

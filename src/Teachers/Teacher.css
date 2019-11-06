@@ -18,20 +18,20 @@
         text-align: left;
         color:red;
     }
-    .aa{
+    .ateacher{
         grid-row:3;
         grid-column:1;
         text-align: center;
     }
-    .ba{grid-row:3;
+    .bteacher{grid-row:3;
         grid-column:2;
         text-align: center;
     }
-    .ca{grid-row:3;
+    .cteacher{grid-row:3;
         grid-column:3;
         text-align: center;
     }
-    .ha{grid-row:4;
+    .hteacher{grid-row:4;
         grid-column: 1/7;
         text-align: center;
         background-color: rgba(0, 0, 0, 0.800);

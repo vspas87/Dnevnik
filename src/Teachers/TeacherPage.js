@@ -38,16 +38,16 @@ class TeacherPage extends Component {
                     </div>
                     <button onClick={this.handleLogout} className="buttonTop">Logout</button>
                     <button onClick={this.handleGoBack} className="buttonTop">GoBack</button>
-                    <div className="aa ct">
+                    <div className="ateacher ct">
                     <NavLink className="button" activeClassName="active" to="/class">Classes</NavLink>
                     </div>
-                    <div className="ba ct">
+                    <div className="bteacher ct">
                     <NavLink className="button" activeClassName="active" to="/subject">Subjects</NavLink>
                     </div>
-                    <div className="ca ct">
+                    <div className="cteacher ct">
                     <NavLink className="button" activeClassName="active" to="/profil">Profil</NavLink>
                     </div>
-                    <div className="ha ct">
+                    <div className="hteacher ct">
               <Switch/>
                     <Route exact path="/class" 
                     component={(props) => <ClassPage

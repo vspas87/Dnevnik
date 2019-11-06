@@ -9,21 +9,20 @@ class ClassPage extends Component {
                 isLoading:false,
                 isError:false,
                 classes: [],
-                selectedClass:null
+                selectedClass: ''
         };
-        this.handleView=this.handleView.bind(this);
+        this.handleClick=this.handleClick.bind(this);
     }
-    handleView (e) {
-        e.preventDefault();
-        const response = fetch ('http://localhost:8095/dnevnik/teacher/student/grade' + this.props.selectedClass, {
+    handleClick = (value) => {
+        const response = fetch ('http://localhost:8095/dnevnik/grading/class/' + this.state.selectedClass.CLASS_ID, {
             method: 'GET',
             headers: {
                     'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
                     "Content-type": "application/json; charset=UTF-8",
                     'Accept': 'application/json'
         },
-        });  
-        this.setState({selectedClass:null})
+        }); 
+        this.setState({selectedClass: value}) 
     }
     async componentDidMount() {
         this.setState({isLoading:true});
@@ -70,17 +69,23 @@ class ClassPage extends Component {
                       {this.state.classes.map((classe) => {
                         return(
                             <tr key={classe.schoolClass.CLASS_ID} >
-                                <td>{classe.schoolClass.CLASS_ID}</td>
-                                <td>{classe.teacher.subject.name}</td>
-                                <td><NavLink activeClassName="active" to="/classStudentGrades">{classe.schoolClass.className}</NavLink></td>
+                                <td>
+                                    <NavLink activeClassName="active"
+                                             to="/classStudentGrades">
+                                    {classe.schoolClass.CLASS_ID}
+                                    </NavLink>
+                                </td>
                                 <Route exact path="/classStudentGrades" 
-                                component={(props) => <ClassStudentGrades
-                                userId={this.props.userId}
-                                role={this.props.role}
-                                username={this.props.username}
-                                password={this.props.password}/>}/>
+                                        component={(props) => <ClassStudentGrades
+                                        userId={this.props.userId}
+                                        role={this.props.role}
+                                        username={this.props.username}
+                                        password={this.props.password}/>}/>
+                                <td>{classe.teacher.subject.name}</td>
+                                <td>{classe.schoolClass.className}</td>
                                 <td>{classe.schoolClass.schoolYear}</td>
-                                <td><button onClick={this.handleView}>View</button></td>
+                                <td><a href='#' onClick={() => {this.handleClick(classe.schoolClass.CLASS_ID)}}>View</a></td>
+                           
                             </tr>
                         )})}
                       </tbody>

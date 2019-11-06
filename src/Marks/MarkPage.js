@@ -43,8 +43,14 @@ class MarkPage extends Component {
                 <div>
                     <h3>Your grades for 2019/2020</h3>
                   <table className="tablemark">
-                      <thead>
-                            <tr>{this.renderTableHeader()}</tr>
+                  <thead>
+                            <tr>
+                            <th>Exam Type</th>
+                            <th>Exam Date</th>
+                            <th>Exam Grade</th>
+                            <th>Teacher</th>
+                            <th>Subject</th>
+                            </tr>
                       </thead>
                       <tbody>
                           {this.renderTableData()}
@@ -59,7 +65,6 @@ renderTableData() {
         return this.state.students.map((student) => {
             return(
                 <tr key={student.GRADING_ID} >
-                    <td>{student.GRADING_ID}</td>
                     <td>{student.examType}</td>
                     <td>{student.examDate}</td>
                     <td>{student.examGrade}</td>
@@ -67,12 +72,6 @@ renderTableData() {
                     <td>{student.teacher.subject.name}</td>
                 </tr>
             )
-        })
-    }
-renderTableHeader() {
-        const header = Object.keys(this.state.students[0]);
-        return header.map((key, index) => {
-            return <th key={index}>{key.toUpperCase()}</th>
         })
     }
 }

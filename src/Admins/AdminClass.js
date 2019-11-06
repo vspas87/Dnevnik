@@ -1,17 +1,17 @@
 import React , {Component} from 'react';
 
-class AdminTeacher extends Component {
+class AdminClass extends Component {
     constructor(props){
         super(props);
         this.state={
                 isLoading:false,
                 isError:false,
-                students: []
+                aclass: []
         };
     }
         async componentDidMount() {
             this.setState({ isLoading:true});
-            const response= await fetch('http://localhost:8095/dnevnik/teacher', {
+            const response= await fetch('http://localhost:8095/dnevnik/class', {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
@@ -20,26 +20,26 @@ class AdminTeacher extends Component {
                 }
             });
         if(response.ok) {
-            const students = await response.json();
-            this.setState({students, isLoading: false})
+            const aclass = await response.json();
+            this.setState({aclass, isLoading: false})
         } else {
             this.setState ({ isLoading: false, isError: true });
         }
     }
     
     render() {
-        const {students, isLoading, isError} = this.state;
+        const {aclass, isLoading, isError} = this.state;
         if(isLoading) {
             return <div>Loading...</div> 
         }
         if(isError){
-            return <div>Error....or doesnt have any grades</div>
+            return <div>Error....or doesnt have any classes</div>
         }
     
-        return students.length > 0
+        return aclass.length > 0
             ? (
                 <div>
-                    <h3>All teachers for 2019/2020</h3>
+                    <h3>All school classes for 2019/2020</h3>
                   <table className="tablemark">
                       <thead>
                             <tr>{this.renderTableHeader()}</tr>
@@ -54,24 +54,21 @@ class AdminTeacher extends Component {
         }
     
 renderTableData() {
-        return this.state.students.map((student) => {
+        return this.state.aclass.map((aclas) => {
             return(
-                <tr key={student.id} >
-                    <td>{student.id}</td>
-                    <td>{student.firstName}</td>
-                    <td>{student.lastName}</td>
-                    <td>{student.user.username}</td>
-                    <td>{student.subject.name}</td>
-                    <td>{student.subject.weeklyFund}</td>
+                <tr key={aclas.CLASS_ID} >
+                    <td>{aclas.CLASS_ID}</td>
+                    <td>{aclas.className}</td>
+                    <td>{aclas.schoolYear}</td>
                 </tr>
             )
         })
     }
 renderTableHeader() {
-        const header = Object.keys(this.state.students[0]);
+        const header = Object.keys(this.state.aclass[0]);
         return header.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
         })
     }
 }
-export default AdminTeacher;
+export default AdminClass;
