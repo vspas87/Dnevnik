@@ -6,7 +6,8 @@ class AdminSubject extends Component {
         this.state={
                 isLoading:false,
                 isError:false,
-                subjects: []
+                subjects: [],
+            
         };
     }
         async componentDidMount() {

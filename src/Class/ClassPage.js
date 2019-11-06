@@ -13,8 +13,9 @@ class ClassPage extends Component {
         };
         this.handleClick=this.handleClick.bind(this);
     }
-    handleClick = (value) => {
-        const response = fetch ('http://localhost:8095/dnevnik/grading/class/' + this.state.selectedClass.CLASS_ID, {
+
+    handleClick = (value) =>  {
+        const response =  fetch ('http://localhost:8095/dnevnik/grading/class/' + this.state.classe.schoolClass.CLASS_ID, {
             method: 'GET',
             headers: {
                     'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
@@ -84,7 +85,7 @@ class ClassPage extends Component {
                                 <td>{classe.teacher.subject.name}</td>
                                 <td>{classe.schoolClass.className}</td>
                                 <td>{classe.schoolClass.schoolYear}</td>
-                                <td><a href='#' onClick={() => {this.handleClick(classe.schoolClass.CLASS_ID)}}>View</a></td>
+                                <td><button onClick={() => {this.handleClick(classe.schoolClass.CLASS_ID)}}>View</button></td>
                            
                             </tr>
                         )})}
