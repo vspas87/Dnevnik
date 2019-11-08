@@ -98,16 +98,15 @@ class AdminPage extends Component {
                   username={this.props.username}
                   password={this.props.password}/>}/>
 
-                
                 <Route exact path="/profil" 
                 component={(props) => <ProfilPage 
                 userId={this.props.userId}
                 role={this.props.role}
                 username={this.props.username}
                 password={this.props.password}/>}/>
-
-          <Switch/>          
-          </div>
+          <Switch/>   
+            </div>
+        
           </div>
           </BrowserRouter>
           </div>

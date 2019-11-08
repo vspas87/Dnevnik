@@ -1,4 +1,7 @@
 import React , {Component} from 'react';
+import {NavLink} from 'react-router-dom'
+import {Route,BrowserRouter, Switch, Redirect} from 'react-router-dom'
+import CreateClass from '../Class/CreateClass'
 
 class AdminClass extends Component {
     constructor(props){
@@ -7,14 +10,15 @@ class AdminClass extends Component {
                 isLoading:false,
                 isError:false,
                 aclass: [],
-                selectedClass:null
+                selectedClass:null,
+                isCreateClick:false
         };
 
         this.handleCreate = this.handleCreate.bind(this);
         this.handleCreateSubmit= this.handleCreateSubmit.bind(this);
         /*this.handleEdit = this.handleEdit.bind(this);
-        this.handleEditSubmit=this.handleEditSubmit.bind(this);    
-        this.handleDelete=this.handleDelete.bind(this);*/
+        this.handleEditSubmit=this.handleEditSubmit.bind(this); */   
+        /*this.handleDelete=this.handleDelete.bind(this);*/
     }
     handleCreate = () => this.setState({isCreateClick : true})
     
@@ -23,7 +27,10 @@ class AdminClass extends Component {
         const response = await fetch('http://localhost:8095/dnevnik/class/addnew' + 
         this.state.aclas.className + '' + this.state.aclas.schoolYear, {
             method:'POST',
-            body: JSON.stringify(this.state.newClass),
+            body: JSON.stringify({
+                            className: '',
+                            schoolYear: null
+            }),
             headers: {
                 'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
                 "Content-type": "application/json; charset=UTF-8",
@@ -45,10 +52,10 @@ class AdminClass extends Component {
                     'Accept': 'application/json'
         },
         });
-        this.setState({selectedClass : null})
+        this.setState({selectedClass : null})*/
 
 
-    handleDelete = (aclas)=> {
+    /*onDelete = (aclas)=> {
         const response = fetch('http://localhost:8095/dnevnik/class/delete/'+ this.state.aclas.CLASS_ID, {
             method: 'DELETE',
             headers: {
@@ -57,6 +64,13 @@ class AdminClass extends Component {
                 'Accept': 'application/json'
             },
         } );
+        this.setState({
+            aclas: [
+                ...this.state.aclas.slice(0,index),
+                ...this.state.aclas.slike(index +1)
+            ]
+        });
+        })
         }
         }*/
     }
@@ -98,9 +112,9 @@ class AdminClass extends Component {
         return aclass.length > 0
             ? (
                 <div>
+                    <BrowserRouter>
                     <p>To create new class, please click on CREATE button<br />
-                    <button onClick={(e) => this.handleCreate()}>Create</button>
-                    <button onClick={(e) => this.handleCreateSubmit()}>Create => Submit</button></p>
+                    <NavLink className="button" activeClassName="active" to="/createClass" >Create</NavLink></p>
                     <h3>All school classes for 2019/2020</h3>
                   <table className="tablemark">
                       <thead>
@@ -110,6 +124,16 @@ class AdminClass extends Component {
                           {this.renderTableData()}
                       </tbody>
                   </table>
+                  <Switch />
+                  <Route 
+                  exact path="/createClass"
+                  component={(props) => <CreateClass
+                    userId={this.props.userId}
+                    role={this.props.role}
+                    username={this.props.username}
+                    password={this.props.password}/>}/>
+                    <Switch />
+                  </BrowserRouter>
                 </div>
             )
             : null

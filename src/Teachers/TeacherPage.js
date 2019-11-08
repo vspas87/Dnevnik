@@ -2,9 +2,10 @@ import React, {Component} from 'react'
 import '../Teachers/Teacher.css'
 import {NavLink} from 'react-router-dom'
 import {Route,BrowserRouter, Switch, Redirect} from 'react-router-dom'
-import ClassPage from '../Class/ClassPage'
 import SubjectPage from '../Subject/SubjectPage'
 import ProfilTeacher from '../Teachers/ProfilTeacher'
+import TeacherClass from '../Teachers/TeacherClass'
+import ListGradeTeacher from './ListGradeTeacher'
 
 
 class TeacherPage extends Component {
@@ -50,7 +51,7 @@ class TeacherPage extends Component {
                     <div className="hteacher ct">
               <Switch/>
                     <Route exact path="/class" 
-                    component={(props) => <ClassPage
+                    component={(props) => <TeacherClass
                         userId={this.props.userId}
                         role={this.props.role}
                         username={this.props.username}
