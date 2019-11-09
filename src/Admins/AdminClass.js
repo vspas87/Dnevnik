@@ -17,7 +17,7 @@ class AdminClass extends Component {
     }
     handleCreate = async (e) => {
         console.log("izvrsava handlecreate");
-        const response = await fetch('http://localhost:80/dnevnik/class/addnew', {
+        const response = await fetch('http://localhost:8095/dnevnik/class/addnew', {
           method: 'POST',
           headers: {
                 'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
@@ -40,7 +40,7 @@ class AdminClass extends Component {
     
     handleEdit = async (e) => {
         console.log("izvrsava handleEdit");
-        const response = await fetch('http://localhost:80/dnevnik/class/update', {
+        const response = await fetch('http://localhost:8095/dnevnik/class/update', {
           method: 'PUT',
           headers: {
                 'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
