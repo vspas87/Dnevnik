@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import {NavLink, Route,BrowserRouter, Switch, Redirect} from 'react-router-dom'
-import ClassStudentGrades from '../Teachers/ClassStudentGrades'
+
 
 class ClassPage extends Component {
     constructor(props){

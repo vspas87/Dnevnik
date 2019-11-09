@@ -9,67 +9,70 @@ background-size: cover;
 }
 .gridnavigation{
     display:grid;
-    grid-template-columns: 4cm 4cm 4cm 4cm 4cm 4cm 4cm 4cm 4cm 4cm;
-    grid-template-rows: 1.5cm 1.5cm 1.5cm 16cm;
+    grid-template-columns: 4cm 4cm 4cm 12cm 12cm 4cm;
+    grid-template-rows: 1.5cm 1.5cm 1.5cm 1.5cm 1.5cm 1.5cm 1.5cm 1.5cm 1.5cm;
 }
 .aaa{
     grid-row:1;
-    grid-column: 1/9;
+    grid-column: 1/6;
     text-align: left;
+    background-color: blueviolet;
 }
 .baa{
     grid-row: 2;
-    grid-column: 1/9;
+    grid-column: 1/6;
     text-align: left;
+    background-color: chartreuse;
 }
 .caa{
     grid-row:3;
     grid-column:1;
     text-align: center;
+    background-color: darkgoldenrod;
 }
-.daa{grid-row:3;
-    grid-column:2;
+.daa{grid-row:4;
+    grid-column:1;
     text-align: center;
+    background-color: darkred;
 }
-.eaa{grid-row:3;
-    grid-column:3;
+.eaa{grid-row:5;
+    grid-column:1;
     text-align: center;
+    background-color: fuchsia;
 }
-.faa{grid-row:3;
-    grid-column:4;
+.faa{grid-row:6;
+    grid-column:1;
     text-align: center;
+    background-color: indigo;
 }
-.gaa{grid-row:3;
-    grid-column:7;
+.gaa{grid-row:7;
+    grid-column:1;
     text-align: center;
+    background-color: forestgreen;
 }
-.haa{grid-row:3;
-    grid-column:9;
+.taa{grid-row:8;
+    grid-column:1;
     text-align: center;
+    background-color: orange;
 }
-.taa{grid-row:3;
-    grid-column:6;
+.raa{grid-row:9;
+    grid-column:1;
     text-align: center;
+    background-color: rosybrown;
 }
-.raa{grid-row:3;
-    grid-column:5;
-    text-align: center;
-}
-.iaa{grid-row:4;
-    grid-column: 1/6;
+.iaa{grid-row: 4/10;
+    grid-column: 2/5;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.800);
     color: white;
     font-weight: bold;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    width: 90%;
-    padding: 30px;
+    z-index: 60;   
 }
-
+.aaaa{
+    grid-row:4/10;
+    grid-column: 4/6;
+    background-color: blue;
+}
 .button {
     background-color: grey;
     border: 2px solid;

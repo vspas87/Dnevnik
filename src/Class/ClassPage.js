@@ -87,7 +87,7 @@ class ClassPage extends Component {
                                 <td>{classe.teacher.subject.name}</td>
                                 <td>{classe.schoolClass.className}</td>
                                 <td>{classe.schoolClass.schoolYear}</td>
-                                <td><button onClick={() => {this.handleClick(this.state.classes.CLASS_ID)}}>View</button></td>
+                                <td><button onClick={() => {this.handleClick(classes)}}>View</button></td>
                            
                             </tr>
                         )})}

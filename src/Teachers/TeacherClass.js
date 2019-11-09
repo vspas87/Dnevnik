@@ -65,7 +65,7 @@ class TeacherClass extends Component {
                     <td>{lecture.schoolClass.CLASS_ID}</td>
                     <td>{lecture.schoolClass.schoolYear}</td>
                     <td>{lecture.schoolClass.className}</td>
-                    <td><a href='#' onClick={() => {this.handleClick(lecture.TEACHING_ID)}}>View</a></td>
+                    <td><a onClick={() => this.handleClick(lecture)}>View</a></td>
                 </tr>
             )
         })
@@ -100,11 +100,11 @@ class TeacherClass extends Component {
                       userId={this.props.userId}
                       username={this.props.username}
                       password={this.props.password} />
-                      }<br/>
+                      }<br/>             
                   </div>
-                      }
+                         }
                 </div>
-           </div>
+           </div>           
             )
             : null
         }

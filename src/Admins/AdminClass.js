@@ -1,7 +1,8 @@
 import React , {Component} from 'react';
 import {NavLink} from 'react-router-dom'
 import {Route,BrowserRouter, Switch, Redirect} from 'react-router-dom'
-import CreateClass from '../Class/CreateClass'
+import CreateClass from '../Admins/Class/CreateClass'
+import EditClass from '../Admins/Class/EditClass'
 
 class AdminClass extends Component {
     constructor(props){
@@ -9,78 +10,55 @@ class AdminClass extends Component {
         this.state={
                 isLoading:false,
                 isError:false,
-                aclass: [],
-                selectedClass:null,
-                isCreateClick:false
+                aclass: []
         };
-
         this.handleCreate = this.handleCreate.bind(this);
-        this.handleCreateSubmit= this.handleCreateSubmit.bind(this);
-        /*this.handleEdit = this.handleEdit.bind(this);
-        this.handleEditSubmit=this.handleEditSubmit.bind(this); */   
-        /*this.handleDelete=this.handleDelete.bind(this);*/
+        this.handleEdit = this.handleEdit.bind(this);
     }
-    handleCreate = () => this.setState({isCreateClick : true})
-    
-    handleCreateSubmit = async (e) => {
-        e.preventDefault()
-        const response = await fetch('http://localhost:8095/dnevnik/class/addnew' + 
-        this.state.aclas.className + '' + this.state.aclas.schoolYear, {
-            method:'POST',
-            body: JSON.stringify({
-                            className: '',
-                            schoolYear: null
-            }),
-            headers: {
+    handleCreate = async (e) => {
+        console.log("izvrsava handlecreate");
+        const response = await fetch('http://localhost:80/dnevnik/class/addnew', {
+          method: 'POST',
+          headers: {
                 'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
                 "Content-type": "application/json; charset=UTF-8",
                 'Accept': 'application/json'
             },
-        });
-        this.setState({ isCreateClick: false, newClass: null})
-        console.log(this.state.newClass)
-    
-    /*handleEdit = (aclas) => this.setState({selectedClass : aclas})
-    handleEditSubmit = async (e) => {
-        e.preventDefault();
-        const response = await fetch ('http://localhost:8095/dnevnik/class/update/' + this.state.selectedClass.CLASS_ID, {
-            method: 'PUT',
-            body: JSON.stringify(this.state.selectedClass),
-            headers: {
-                    'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
-                    "Content-type": "application/json; charset=UTF-8",
-                    'Accept': 'application/json'
-        },
-        });
-        this.setState({selectedClass : null})*/
-
-
-    /*onDelete = (aclas)=> {
-        const response = fetch('http://localhost:8095/dnevnik/class/delete/'+ this.state.aclas.CLASS_ID, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
-                "Content-type": "application/json; charset=UTF-8",
-                'Accept': 'application/json'
-            },
-        } );
-        this.setState({
-            aclas: [
-                ...this.state.aclas.slice(0,index),
-                ...this.state.aclas.slike(index +1)
-            ]
-        });
+          body: JSON.stringify({
+            className: '',
+            schoolYear: '',
+          })
         })
+        if(response.ok) {
+            const serverResponse = await response.json();
+            console.log(serverResponse);
+        } else {            
+            console.log("Greska prilikom odgovora");
         }
-        }*/
+        console.log(response);
     }
-    handleChange = (e) => {
-        this.setState({
-            selectedClass: {
-                ...this.state.selectedClass,
-                [e.target.name]: e.target.value
-            }
+    
+    handleEdit = async (e) => {
+        console.log("izvrsava handleEdit");
+        const response = await fetch('http://localhost:80/dnevnik/class/update', {
+          method: 'PUT',
+          headers: {
+                'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
+                "Content-type": "application/json; charset=UTF-8",
+                'Accept': 'application/json'
+            },
+          body: JSON.stringify({
+            className: '',
+            schoolYear: '',
+          })
         })
+        if(response.ok) {
+            const serverResponse = await response.json();
+            console.log(serverResponse);
+        } else {            
+            console.log("Greska");
+        }
+        console.log(response);
     }
     async componentDidMount() {
             this.setState({ isLoading:true});
@@ -114,7 +92,7 @@ class AdminClass extends Component {
                 <div>
                     <BrowserRouter>
                     <p>To create new class, please click on CREATE button<br />
-                    <NavLink className="button" activeClassName="active" to="/createClass" >Create</NavLink></p>
+                    <NavLink activeClassName="active" to="/createClass" >Create</NavLink></p>
                     <h3>All school classes for 2019/2020</h3>
                   <table className="tablemark">
                       <thead>
@@ -124,10 +102,17 @@ class AdminClass extends Component {
                           {this.renderTableData()}
                       </tbody>
                   </table>
-                  <Switch />
-                  <Route 
+                <Switch />
+                <Route 
                   exact path="/createClass"
                   component={(props) => <CreateClass
+                    userId={this.props.userId}
+                    role={this.props.role}
+                    username={this.props.username}
+                    password={this.props.password}/>}/>
+                <Route
+                exact path="/editClass"
+                component={(props) => <EditClass
                     userId={this.props.userId}
                     role={this.props.role}
                     username={this.props.username}
@@ -146,9 +131,7 @@ renderTableData() {
                     <td>{aclas.CLASS_ID}</td>
                     <td>{aclas.className}</td>
                     <td>{aclas.schoolYear}</td>
-                    <td><button onClick={(e) => this.handleEdit()}>Edit</button></td>
-                    <td><button onClick={(e) => this.handleEditSubmit()}>Edit => Submit</button></td>
-                    <td><button onClick={(e) => this.handleDelete()}>Delete</button></td>
+                    <td><button onClick={() => this.handleEdit()}><NavLink to="/editClass">Edit</NavLink></button></td>
                 </tr>
             )
         })

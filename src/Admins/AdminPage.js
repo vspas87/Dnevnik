@@ -48,11 +48,11 @@ class AdminPage extends Component {
               <NavLink className='button' to="/parents">Parents</NavLink></div>
               <div className="faa ct">
               <NavLink className='button' to="/admins">Admins</NavLink></div>
-              <div className="taa ct">
-              <NavLink className='button' to="/subjects">Subjects</NavLink></div>
-              <div className="raa ct">
-              <NavLink className='button' to="/classes">Classes</NavLink></div>
               <div className="gaa ct">
+              <NavLink className='button' to="/subjects">Subjects</NavLink></div>
+              <div className="taa ct">
+              <NavLink className='button' to="/classes">Classes</NavLink></div>
+              <div className="raa ct">
               <NavLink className='button' to="/profil" >Profil</NavLink></div>
           <div className="iaa ct">  
           <Switch/>
@@ -62,7 +62,7 @@ class AdminPage extends Component {
                   role={this.props.role}
                   username={this.props.username}
                   password={this.props.password}/>}/>
-
+                  
                 <Route exact path="/teachers" 
                   component={(props) => <AdminTeacher 
                   userId={this.props.userId}
@@ -105,8 +105,7 @@ class AdminPage extends Component {
                 username={this.props.username}
                 password={this.props.password}/>}/>
           <Switch/>   
-            </div>
-        
+          </div>
           </div>
           </BrowserRouter>
           </div>
