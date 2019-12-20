@@ -1,63 +1,47 @@
 import React, {Component} from 'react'
+import {BrowserRouter, Switch} from 'react-router-dom'
+import CreateParent from '../Admins/Parent/CreateParent'
+import EditParent from '../Admins/Parent/EditParent'
 
 class ParentsPage extends Component {
     constructor(props){
         super(props)
         this.state={
-                isLoading:false,
-                isError:false,
-                parents: [],
-                selectedParent:null
+            selectedParent: null,
+            isEditing:false,
+			isCreating:false,
+            isLoading:false,
+            isError:false,
+            parents: [],
+            isDeleting: false
+
         };
         this.handleCreate=this.handleCreate.bind(this);
         this.handleEdit= this.handleEdit.bind(this);
         this.handleDelete= this.handleDelete.bind(this);
     }
- 
-    handleCreate = (parent) => this.setState({isCreateClick : true})
-    handleEdit= (parent) => this.setState({ selectedParent : parent})
-    handleDelete= async (parent)=> {
-        const response = await fetch('http://localhost:8095/dnevnik/parent/'+ parent.id, {
+    handleCreate = () => {
+		this.setState({isCreating: true,
+			isEditing: false})
+	}
+    
+	handleEdit = ( value ) => {
+		console.log(value);
+		this.setState({selectedParent: value,
+			isCreating: false,
+			isEditing: true})
+	}
+    
+    handleDelete = async (value)=> {
+        const response = await fetch('http://localhost:8095/dnevnik/user/', {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
                 "Content-type": "application/json; charset=UTF-8",
                 'Accept': 'application/json'
             },
-            mode:'cors'
-        } );
-        //this.setState({})
-    }
-    handleEditSubmit = async (e) => {
-        e.preventDefault();
-        const response = await fetch ('http://localhost:8095/dnevnik/parent/' + this.state.selectedParent.id, {
-            method: 'PUT',
-            body: JSON.stringify(this.state.selectedParent),
-            headers: {
-                    'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
-                    "Content-type": "application/json; charset=UTF-8",
-                    'Accept': 'application/json'
-        },
-        mode:'cors'
-        });
-        this.setState({selectedParent : null})
-    //this.componentDidMount();
-    }
-    handleCreateSubmit = async (e, parent) => { debugger;
-        e.preventDefault()
-        const response = await fetch('http://localhost:8095/dnevnik/parent', {
-            method:'POST',
-            body: JSON.stringify(this.state.newParent),
-            headers: {
-                'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
-                "Content-type": "application/json; charset=UTF-8",
-                'Accept': 'application/json'
-            },
-            mode:'cors'
-        });
-        this.setState({ isCreateClick: false, newParent: null})
-        //this.componentDidMount();
-    }
+        } )}
+
         async componentDidMount() {
             this.setState({ isLoading:true});
             const response= await fetch('http://localhost:8095/dnevnik/parent', {
@@ -82,28 +66,46 @@ class ParentsPage extends Component {
             return <div>Loading...</div> 
         }
         if(isError){
-            return <div>Error....</div>
+            return <div>Error...No parents at all? Sure?</div>
         }
-
+        let creating;
+		if (this.state.isCreating) {
+            creating = <CreateParent
+            userId={this.props.userId}
+            username={this.props.username}
+            password={this.props.password}
+            role={this.props.role} />;
+		}
+	
+		let editing;
+		if (this.state.isEditing) {
+            editing = <EditParent 
+            userId={this.props.userId}
+            username={this.props.username}
+            password={this.props.password}
+            role={this.props.role}
+            selectedParent = {this.state.selectedParent} />;			
+		}
         return parents.length > 0
             ? (
                 <div>
-                    
-                    <p>If you would like to add new parent, please click below:
-                    <br/>
-                    <td><button onClick={(e) => this.handleCreateSubmit(e)}>Create</button></td>
-                    </p>
-                    <p>For update or delete parent information, please click to wright button:</p>
-                    <br/>
-                    <h3 id="title">All parents of students for 2019/2020</h3>
-                  <table id='users'>
+                    <BrowserRouter>
+                    <p>To create new parent/user, please click<br />
+                    <button onClick={ value => this.handleCreate()}>Create</button></p>
+                    <Switch />    
+				    {creating}
+				    {editing}
+                    <Switch />
+                    <h3 style={{backgroundColor:'grey'}}>All parents for 2019/2020</h3>
+                    <table className="tablemark">
                       <thead>
                             <tr>{this.renderTableHeader()}</tr>
                       </thead>
                       <tbody>
                           {this.renderTableData()}
                       </tbody>
-                  </table>
+                    </table>
+                    </BrowserRouter>
                 </div>
             )
             : null
@@ -118,8 +120,7 @@ renderTableData() {
                     <td>{parent.lastName}</td>
                     <td>{parent.email}</td>
                     <td>{parent.user.USER_ID}</td>
-                    <td><button onClick={(e) => this.handleEditSubmit(e, parent)}>Edit</button></td>
-                    <td><button onClick={(e) => this.handleDelete(parent)}>Delete</button></td>
+                    <td><button onClick={(e) => this.handleEdit(parent)}>Edit</button></td>
                 </tr>
             )
         })

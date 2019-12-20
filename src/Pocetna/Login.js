@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import Logo from '../Pocetna/esdnevniklogo.png'
-import Background from '../Pocetna/dnevnik.jpg'
-
 
 class Login extends Component {
     render() {
@@ -30,7 +28,6 @@ class Login extends Component {
                         value={this.props.password} 
                         onChange={this.props.onLoginChange}
                         required />
-                  
                   <br/>
                     <button 
                         className="button"

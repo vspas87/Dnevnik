@@ -1,4 +1,7 @@
 import React , {Component} from 'react';
+import EditTeacher from './Teacher/EditTeacher';
+import {BrowserRouter, Switch} from 'react-router-dom'
+import CreateTeacher from './Teacher/CreateTeacher';
 
 class AdminTeacher extends Component {
     constructor(props){
@@ -6,10 +9,25 @@ class AdminTeacher extends Component {
         this.state={
                 isLoading:false,
                 isError:false,
-                students: []
+                teachers: [],
+                selectedTeacher: null,
+			    isEditing:false,
+			    isCreating:false,
         };
+    this.handleEdit= this.handleEdit.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
     }
-        async componentDidMount() {
+    handleCreate = () => {
+		this.setState({isCreating: true,
+			isEditing: false})
+	}
+	handleEdit = ( value ) => {
+		console.log(value);
+		this.setState({selectedTeacher: value,
+			isCreating: false,
+			isEditing: true})
+	}
+    async componentDidMount() {
             this.setState({ isLoading:true});
             const response= await fetch('http://localhost:8095/dnevnik/teacher', {
                 method: 'GET',
@@ -20,29 +38,59 @@ class AdminTeacher extends Component {
                 }
             });
         if(response.ok) {
-            const students = await response.json();
-            this.setState({students, isLoading: false})
+            const teachers = await response.json();
+            this.setState({teachers, isLoading: false})
         } else {
             this.setState ({ isLoading: false, isError: true });
         }
     }
     
     render() {
-        const {students, isLoading, isError} = this.state;
+        const {teachers, isLoading, isError} = this.state;
         if(isLoading) {
             return <div>Loading...</div> 
         }
         if(isError){
-            return <div>Error....or doesnt have any grades</div>
+            return <div>Please check your teachers</div>
         }
-    
-        return students.length > 0
+        let creating;
+		if (this.state.isCreating) {
+            creating = <CreateTeacher
+            userId={this.props.userId}
+            username={this.props.username}
+            password={this.props.password}
+            role={this.props.role} />;
+		}
+	
+		let editing;
+		if (this.state.isEditing) {
+            editing = <EditTeacher 
+            userId={this.props.userId}
+            username={this.props.username}
+            password={this.props.password}
+            role={this.props.role}
+            selectedTeacher = {this.state.selectedTeacher} />;			
+		}
+        return teachers.length > 0
             ? (
                 <div>
-                    <h3>All teachers for 2019/2020</h3>
-                  <table className="tablemark">
-                      <thead>
-                            <tr>{this.renderTableHeader()}</tr>
+                    <Switch />    
+				    {creating}
+				    {editing}
+                    <Switch />
+                    <h1 id="title" style={{backgroundColor:'grey'}}>Information about all teachers of <br />"Elektronski dnevnik"</h1>
+                    <p style={{backgroundColor:'purple',textAlign:'center'}}>To add new teacher, please click on:
+                    <button onClick={ value => this.handleCreate()}>Create</button></p>
+                    <table className="tablemark">
+                    <thead>
+                            <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Subject ID</th>
+                            <th>Subject name</th>
+                            <th>WeeklyFund</th>
+                            </tr>
                       </thead>
                       <tbody>
                           {this.renderTableData()}
@@ -54,23 +102,18 @@ class AdminTeacher extends Component {
         }
     
 renderTableData() {
-        return this.state.students.map((student) => {
+        return this.state.teachers.map((teacher) => {
             return(
-                <tr key={student.id} >
-                    <td>{student.id}</td>
-                    <td>{student.firstName}</td>
-                    <td>{student.lastName}</td>
-                    <td>{student.user.username}</td>
-                    <td>{student.subject.name}</td>
-                    <td>{student.subject.weeklyFund}</td>
+                <tr key={teacher.id} >
+                    <td>{teacher.id}</td>
+                    <td>{teacher.firstName} {teacher.lastName}</td>
+                    <td>{teacher.user.username}</td>
+                    <td>{teacher.subject.SUBJECT_ID}</td>
+                    <td>{teacher.subject.name}</td>
+                    <td>{teacher.subject.weeklyFund}</td>
+                    <td><button onClick={(e) => this.handleEdit(teacher)}>Edit</button></td>
                 </tr>
             )
-        })
-    }
-renderTableHeader() {
-        const header = Object.keys(this.state.students[0]);
-        return header.map((key, index) => {
-            return <th key={index}>{key.toUpperCase()}</th>
         })
     }
 }

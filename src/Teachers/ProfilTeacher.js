@@ -30,17 +30,18 @@ class ProfilTeacher extends Component {
     render() {
         const {teachers, isLoading, isError} = this.state;
         if(isLoading) {
-            return <div>Loading...</div> 
+            return <div>Loading grades...</div> 
         }
         if(isError){
-            return <div>Error....</div>
+            return <div>You havent examed your students yet. <br />
+            Please, prepare test!</div>
         }
 
         return teachers.length > 0
             ? (
                 <div>
-                    <h3>Your profile</h3>
-                  <table className="tablemark">
+                    <h3 style={{textAlign:"left"}}>Your profile information</h3>
+                    <table>
                       <thead>
                             <tr>
                                 <th>ID</th>

@@ -41,7 +41,7 @@ class StudentPage extends Component {
                   <NavLink className='button' to="/profil">Profil</NavLink></div>
                   <div className="da ct">
                   <NavLink className='button' to="/mark">Marks</NavLink></div>
-              <div className="ia ct">  
+              <div className="ia ct">
               <Switch/>
                 <Route exact path="/profil" 
                   component={(props) => <ProfilStudent

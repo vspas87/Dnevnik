@@ -34,22 +34,22 @@ class ChildrenPage extends Component {
             return <div>Loading...</div> 
         }
         if(isError){
-            return <div>Error....or doesnt have any grades</div>
+            return <div>No grades to be shown. <br />
+            Check next week after exams!</div>
         }
     
         return students.length > 0
             ? (
                 <div>
-                    <h3>Your child grades for 2019/2020</h3>
+                    <h3>Your child / children grades for 2019/2020</h3>
                   <table className="tablemark">
                       <thead>
                              <tr>
                              <th>Exam Type</th>
-                             <th>Exam Date</th>
                              <th>Exam Grade</th>
                              <th>Teacher</th>
                              <th>Subject</th>
-                             <th>Student name</th>
+                             <th>Student</th>
                              <th>Class</th>
                           </tr>
                         </thead>
@@ -67,11 +67,10 @@ renderTableData() {
             return(
                 <tr key={student.GRADING_ID} >
                     <td>{student.examType}</td>
-                    <td>{student.examDate}</td>
                     <td>{student.examGrade}</td>
                     <td>{student.teacher.lastName}</td>
                     <td>{student.teacher.subject.name}</td>
-                    <td>{student.student.firstName}</td>
+                    <td>{student.student.firstName} {student.student.lastName}</td>
                     <td>{student.student.schoolClass.className}</td>
                 </tr>
             )

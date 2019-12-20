@@ -1,18 +1,18 @@
 import React , {Component} from 'react';
 import {BrowserRouter, Switch} from 'react-router-dom'
-import CreateClass from '../Admins/Class/CreateClass'
-import EditClass from '../Admins/Class/EditClass'
+import CreateDepartment from '../Department/CreateDepartment'
+import EditDepartment from '../Department/EditDepartment'
 
-class AdminClass extends Component {
+class DepartmentPage extends Component {
     constructor(props){
         super(props);
         this.state={
-				selectedClass: null,
+				selectedDep: null,
 				isEditing:false,
 				isCreating:false,
                 isLoading:false,
                 isError:false,
-                aclass: []
+                deps: []
         };
         this.handleCreate = this.handleCreate.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
@@ -25,14 +25,14 @@ class AdminClass extends Component {
     
 	handleEdit = ( value ) => {
 		console.log(value);
-		this.setState({selectedClass: value,
+		this.setState({selectedDep: value,
 			isCreating: false,
 			isEditing: true})
 	}
 	
     async componentDidMount() {
             this.setState({ isLoading:true});
-            const response= await fetch('http://localhost:8095/dnevnik/class', {
+            const response= await fetch('http://localhost:8095/dnevnik/department', {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Basic ' + window.btoa(this.props.username + ":" + this.props.password),
@@ -41,25 +41,25 @@ class AdminClass extends Component {
                 }
             });
         if(response.ok) {
-            const aclass = await response.json();
-            this.setState({aclass, isLoading: false})
+            const deps = await response.json();
+            this.setState({deps, isLoading: false})
         } else {
             this.setState ({ isLoading: false, isError: true });
         }
     }
     
     render() {
-        const {aclass, isLoading, isError} = this.state;
+        const {deps, isLoading, isError} = this.state;
         if(isLoading) {
             return <div>Loading...</div> 
         }
         if(isError){
-            return <div>Error....or doesnt have any classes</div>
+            return <div>Error....or doesnt have any department</div>
         }
     
 		let creating;
 		if (this.state.isCreating) {
-            creating = <CreateClass
+            creating = <CreateDepartment
             userId={this.props.userId}
             username={this.props.username}
             password={this.props.password}
@@ -68,25 +68,25 @@ class AdminClass extends Component {
 	
 		let editing;
 		if (this.state.isEditing) {
-            editing = <EditClass 
+            editing = <EditDepartment 
             userId={this.props.userId}
             username={this.props.username}
             password={this.props.password}
             role={this.props.role}
-            selectedClass = {this.state.selectedClass} />;			
+            selectedDep = {this.state.selectedDep} />;			
 		}
 	
-        return aclass.length > 0
+        return deps.length > 0
             ? (
                 <div>
                     <BrowserRouter>
-                    <p>To create new class, please click<br />
+                    <p>To create new department, please click<br />
                     <button onClick={ value => this.handleCreate()}>Create</button></p>
                     <Switch />    
 				    {creating}
 				    {editing}
                     <Switch />
-                    <h3>All school classes for 2019/2020</h3>
+                    <h3>School departments for 2019/2020</h3>
                     <table className="tablemark">
                       <thead>
                             <tr>{this.renderTableHeader()}</tr>
@@ -102,22 +102,21 @@ class AdminClass extends Component {
         }
     
 renderTableData() {
-        return this.state.aclass.map((aclas) => {
+        return this.state.deps.map((dep) => {
             return(
-                <tr key={aclas.CLASS_ID} >
-                    <td>{aclas.CLASS_ID}</td>
-                    <td>{aclas.className}</td>
-                    <td>{aclas.schoolYear}</td>
-                    <td><button onClick={value => this.handleEdit(aclas)}>Edit</button></td>
+                <tr key={dep.DepartmentID} >
+                    <td>{dep.name}</td>
+                    <td>{dep.classroom}</td>
+                    <td><button onClick={value => this.handleEdit(dep)}>Edit</button></td>
                 </tr>
             )
         })
     }
 renderTableHeader() {
-        const header = Object.keys(this.state.aclass[0]);
+        const header = Object.keys(this.state.deps[0]);
         return header.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
         })
     }
 }
-export default AdminClass;
+export default DepartmentPage;

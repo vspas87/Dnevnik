@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+import {BrowserRouter, Switch} from 'react-router-dom'
+import CreateAdmin from '../Admins/Admin/CreateAdmin'
+import EditAdmin from '../Admins/Admin/EditAdmin'
 
 class AdminTable extends Component {
     constructor(props) {
@@ -7,30 +10,25 @@ class AdminTable extends Component {
             isLoading: false,
             isError: false,
             admins: [],
-            selectedAdmin: null
+            selectedAdmin: null,
+			isEditing:false,
+			isCreating:false,
         };
-        this.handleEdit= this.handleEdit.bind(this);
-        this.handleEditSubmit=this.handleEditSubmit.bind(this);
+    this.handleEdit= this.handleEdit.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
     }
-
-    handleEdit = (admin) => this.setState({selectedAdmin :admin})
-
-    handleEditSubmit = (e) => {
-        const admins = [...this.state.admins]
-        const index= admins.findIndex((admin) => admin.id === this.state.selectedAdmin.id)
-        admins.splice(index,1,this.state.selectedAdmin)
-        this.setState ({admins, selectedAdmin: null})
-        e.preventDefault();
-    }
-
-    handleChange = (e) => {
-        this.setState({
-            selectedAdmin: {
-                ...this.state.selectedAdmin,
-                [e.target.name]: e.target.value
-            }
-        })
-    }
+    handleCreate = () => {
+		this.setState({isCreating: true,
+			isEditing: false})
+	}
+    
+	handleEdit = ( value ) => {
+		console.log(value);
+		this.setState({selectedAdmin: value,
+			isCreating: false,
+			isEditing: true})
+	}
+    
 
     async componentDidMount() {
         this.setState({ isLoading: true});
@@ -55,16 +53,38 @@ class AdminTable extends Component {
             return <div>Loading...</div> 
         }
         if(isError){
-            return <div>Error....</div>
+            return <div>This aplication doesnt have any admins ?</div>
         }
-
+        let creating;
+		if (this.state.isCreating) {
+            creating = <CreateAdmin
+            userId={this.props.userId}
+            username={this.props.username}
+            password={this.props.password}
+            role={this.props.role} />;
+		}
+	
+		let editing;
+		if (this.state.isEditing) {
+            editing = <EditAdmin 
+            userId={this.props.userId}
+            username={this.props.username}
+            password={this.props.password}
+            role={this.props.role}
+            selectedAdmin = {this.state.selectedAdmin} />;			
+		}
         return admins.length > 0
             ? (
                 <div>
-                    <p>To add new admin, please click on button "CREATE"
-                        <br/></p>
-                    <h1 id="title">All admins</h1>
-                  <table id='users'>
+                    <BrowserRouter>
+                    <Switch />    
+				    {creating}
+				    {editing}
+                    <Switch />
+                    <h1 id="title" style={{backgroundColor:'grey'}}>Information about admins of <br />"Elektronski dnevnik"</h1>
+                    <p style={{backgroundColor:'purple', textAlign:'center'}}>To add new admin, please click on:
+                    <button onClick={ value => this.handleCreate()}>Create</button></p>
+                    <table id='users'>
                       <thead>
                             <tr>
                             <th>#</th>
@@ -78,6 +98,7 @@ class AdminTable extends Component {
                           {this.renderTableData()}
                       </tbody>
                   </table>
+                  </BrowserRouter>
                 </div>
             )
             : null
@@ -92,8 +113,7 @@ renderTableData() {
                     <td>{admin.lastName}</td>
                     <td>{admin.user.USER_ID}</td>
                     <td>{admin.user.username}</td>
-                    <td><button onClick={(e) => this.handleEdit(e)}>Edit</button></td>
-                    <td><button onClick={(e) => this.handleEditSubmit()}>Submit</button></td>
+                    <td><button onClick={(e) => this.handleEdit(admin)}>Edit</button></td>
                 </tr>
             )
         })

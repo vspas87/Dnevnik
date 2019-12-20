@@ -8,21 +8,14 @@ class TeacherClass extends Component {
             lectures: [],
             selectedLecture: null,
             isLoading: false,
-            isError: false,
-            izbor:''
+            isError: false
         };
-        this.handleChoise= this.handleChoise.bind(this);
         this.handleClick=this.handleClick.bind(this);
     }
 
     handleClick = (value) => {
         this.setState({
             selectedLecture:value
-        })
-    }
-    handleChoise = (izbor) => {
-        this.setState({
-            izbor
         })
     }
 
@@ -49,9 +42,9 @@ class TeacherClass extends Component {
                 <td>#</td>
                 <td>Teacher Name</td>
                 <td>Subject Name</td>
-                <td>Class ID</td>
+                <td>Class No</td>
                 <td>School Year</td>
-                <td>Class Name</td> 
+                <td>Class</td> 
             </tr>
         )
     }
@@ -60,7 +53,7 @@ class TeacherClass extends Component {
             return(
                 <tr key={lecture.TEACHING_ID}>
                     <td>{lecture.TEACHING_ID}</td>
-                    <td>{lecture.teacher.firstName}</td>
+                    <td>{lecture.teacher.firstName} {lecture.teacher.lastName}</td>
                     <td>{lecture.teacher.subject.name}</td>
                     <td>{lecture.schoolClass.CLASS_ID}</td>
                     <td>{lecture.schoolClass.schoolYear}</td>
@@ -77,7 +70,7 @@ class TeacherClass extends Component {
             return <div>Loading...</div> 
         }
         if(isError){
-            return <div>Error....</div>
+            return <div>You arent teaching any class.</div>
         }
         return lectures.length > 0
             ? (
@@ -95,7 +88,7 @@ class TeacherClass extends Component {
                       {this.state.selectedLecture !== null &&
                       <div>
                       <ListGradeTeacher
-                      classID={this.state.selectedLecture.TEACHING_ID}
+                      classID={this.state.selectedLecture.schoolClass.CLASS_ID}
                       className={this.state.selectedLecture.className}
                       userId={this.props.userId}
                       username={this.props.username}

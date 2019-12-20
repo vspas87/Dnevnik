@@ -35,7 +35,7 @@ class MarkPage extends Component {
             return <div>Loading...</div> 
         }
         if(isError){
-            return <div>Error....</div>
+            return <div>You dont have any grades yet.</div>
         }
 
         return students.length > 0
@@ -46,7 +46,6 @@ class MarkPage extends Component {
                   <thead>
                             <tr>
                             <th>Exam Type</th>
-                            <th>Exam Date</th>
                             <th>Exam Grade</th>
                             <th>Teacher</th>
                             <th>Subject</th>
@@ -66,7 +65,6 @@ renderTableData() {
             return(
                 <tr key={student.GRADING_ID} >
                     <td>{student.examType}</td>
-                    <td>{student.examDate}</td>
                     <td>{student.examGrade}</td>
                     <td>{student.teacher.lastName}</td>
                     <td>{student.teacher.subject.name}</td>

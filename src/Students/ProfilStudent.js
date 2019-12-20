@@ -40,16 +40,15 @@ class ProfilStudent extends Component {
             ? (
                 <div>
                     <h3>Your profile information</h3>
-                  <table className="tablemark">
+                  <table className="tableprofil">
                       <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>FirstName</th>
-                                <th>LastName</th>
-                                <th>schoolClass</th>
-                                <th>User ID Number</th>
+                                <th>Your ID</th>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                                <th>School Class</th>
                                 <th>Username</th>
-                                <th>Parent name</th>
+                                <th colSpan='2'>Parent</th>
                             </tr>
                       </thead>
                       <tbody>
@@ -60,10 +59,8 @@ class ProfilStudent extends Component {
                                 <td>{student.firstName}</td>
                                 <td>{student.lastName}</td>
                                 <td>{student.schoolClass.className}</td>
-                                <td>{student.user.USER_ID}</td>
                                 <td>{student.user.username}</td>
-                                <td>{student.parent.firstName}</td>
-                                <td>{student.parent.lastName}</td>
+                                <td>{student.parent.firstName} {student.parent.lastName}</td>
                             </tr>
                             )
                         })

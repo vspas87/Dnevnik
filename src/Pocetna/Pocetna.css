@@ -22,9 +22,8 @@ a {
 .login{
   background-image: url(../Pocetna/dnevnik.jpg);
   background-size: cover;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-position: center center;
+  height: 108%;
+  background-position: center;
 }
 
   

@@ -8,6 +8,7 @@ import AdminSubject from '../Admins/AdminSubject'
 import ParentsPage from '../Admins/ParentsPage'
 import ProfilPage from '../Pages/ProfilPage'
 import AdminTable from '../Admins/AdminTable'
+import DepartmentPage from '../Admins/Department/DepartmentPage'
 
 
 class AdminPage extends Component {
@@ -52,6 +53,8 @@ class AdminPage extends Component {
               <NavLink className='button' to="/subjects">Subjects</NavLink></div>
               <div className="taa ct">
               <NavLink className='button' to="/classes">Classes</NavLink></div>
+              <div className="kaa ct">
+              <NavLink className="button" to="/department">Department</NavLink></div>
               <div className="raa ct">
               <NavLink className='button' to="/profil" >Profil</NavLink></div>
           <div className="iaa ct">  
@@ -93,6 +96,13 @@ class AdminPage extends Component {
 
                 <Route exact path="/classes" 
                   component={(props) => <AdminClass 
+                  userId={this.props.userId}
+                  role={this.props.role}
+                  username={this.props.username}
+                  password={this.props.password}/>}/>
+
+                <Route exact path="/department" 
+                  component={(props) => <DepartmentPage 
                   userId={this.props.userId}
                   role={this.props.role}
                   username={this.props.username}

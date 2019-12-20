@@ -39,13 +39,13 @@ class ProfilParent extends Component {
         return parents.length > 0
             ? (
                 <div>
-                    <h3>Your profile</h3>
-                  <table className="tablemark">
+                    <h3>Your profile information</h3>
+                  <table>
                       <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>FirstName</th>
-                                <th>LastName</th>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
                                 <th>Email</th>
                                 <th>User ID Number</th>
                                 <th>Username</th>

@@ -1,17 +1,17 @@
 import React, {Component} from 'react'
 
-class CreateClass extends Component {
+class CreateDepartment extends Component {
   constructor(props){
     super(props);
     this.state = {
-       className : '',
-	     schoolYear : '',
+        name : '',
+        classroom : '',
       }
   }
 
   handleCreate = async (e) => {
-        var url = 'http://localhost:8095/dnevnik/class/addnew?className=' + this.state.className + 
-        '&schoolYear=' + this.state.schoolYear;
+        var url = 'http://localhost:8095/dnevnik/department/add?name=' + this.state.name + 
+        '&classroom=' + this.state.classroom;
         console.log(url);
         const response = await fetch(url, {
           method: 'POST',
@@ -21,14 +21,14 @@ class CreateClass extends Component {
                 'Accept': 'application/json'
             },
           body: JSON.stringify({
-            className: this.state.className,
-            schoolYear: this.state.schoolYear,
+            name: this.state.name,
+            classroom: this.state.classroom,
           })
         })
         if(response.ok) {
             const serverResponse = await response.json();
             console.log(serverResponse);
-            alert('Just created new class');
+            alert('Just created new department');
         } else {            
             console.log("Greska prilikom odgovora");
             alert('Please check again in sql and back')
@@ -37,41 +37,41 @@ class CreateClass extends Component {
     }
     
 	
-	classNameHandler = (event) => {
-		this.setState({className: event.target.value});
+	nameHandler = (event) => {
+		this.setState({name: event.target.value});
 	}
 	
-	schoolYearHandler = (event) => {
-		this.setState({schoolYear: event.target.value});
+	classroomHandler = (event) => {
+		this.setState({classroom: event.target.value});
 	}
 
   render() {
-	console.log("EditClass props");
+	console.log("Create Department props");
 	console.log(this.props);
     return (
         <div className="aaaa ct">
-        <label htmlFor="className">Add class name</label>
+        <label htmlFor="name">Add department name</label>
         <input 
           type="text"
-          value={this.state.className}
-          onChange={this.classNameHandler}
+          value={this.state.name}
+          onChange={this.nameHandler}
           required />
           <br />
-        <label htmlFor="schoolYear">Add school year</label>
+        <label htmlFor="classroom">Add department classroom</label>
         <input 
           type="text"
-          value={this.state.schoolYear}
-          onChange={this.schoolYearHandler}
+          value={this.state.classroom}
+          onChange={this.classroomHandler}
           required />
           <br />
         <button
           value="Save new class"
 			    onClick={() => this.handleCreate()}
-        >Save new class!
+        >Save new department!
         </button>  
         <br />  
         </div>
         )
         }
 }
-export default CreateClass;
+export default CreateDepartment;

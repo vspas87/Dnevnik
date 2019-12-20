@@ -39,7 +39,7 @@ class SubjectPage extends Component {
         return teachers.length > 0
             ? (
                 <div>
-                    <h3>Your subjects</h3>
+                    <h3 style={{textAlign:"left"}}>Your subjects</h3>
                   <table className="tablemark">
                       <thead>
                             <tr>

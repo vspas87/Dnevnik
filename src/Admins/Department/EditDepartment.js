@@ -1,21 +1,21 @@
 import React, {Component} from 'react'
 
-class EditClass extends Component {
+class EditDepartment extends Component {
   constructor(props){
-	console.log("EditClass");
+	console.log("EditDepartment");
     super(props);	
     this.state = {
-        className : props.selectedClass.className,
-	      schoolYear : props.selectedClass.schoolYear,
-	      CLASS_ID : props.selectedClass.CLASS_ID
+        name : props.selectedDep.name,
+        classroom : props.selectedDep.classroom,
+        id: props.selectedDep.DepartmentID
 	}
   }
   
   handleEdit = async (e) => {
-        var url = 'http://localhost:8095/dnevnik/class/update/' + 
-        this.state.CLASS_ID + '?className=' + 
-        this.state.className + '&schoolYear=' + 
-        this.state.schoolYear;
+        var url = 'http://localhost:8095/dnevnik/department/update/' + 
+        this.state.id + '?name=' + 
+        this.state.name + '&classroom=' + 
+        this.state.classroom;
         const response = await fetch(url, {
           method: 'POST',
           headers: {
@@ -24,9 +24,8 @@ class EditClass extends Component {
                 'Accept': 'application/json'
             },
           body: JSON.stringify({
-            className: this.state.className,
-            schoolYear: this.state.schoolYear,
-			CLASS_ID: this.state.CLASS_ID
+            name: this.state.name,
+            classroom: this.state.classroom,
           })
         })
         if(response.ok) {
@@ -39,35 +38,35 @@ class EditClass extends Component {
         }
         console.log(response);
       }
-	classNameHandler = (event) => {
-		this.setState({className: event.target.value});
+	nameHandler = (event) => {
+		this.setState({name: event.target.value});
 	}
 	
-	schoolYearHandler = (event) => {
-		this.setState({schoolYear: event.target.value});
+	classroomHandler = (event) => {
+		this.setState({classroom: event.target.value});
 	}
 
   render() {
-	console.log("EditClass props");
+	console.log("Edit Dept props");
 	console.log(this.props);
     return (
         <div className="aaaa ct">
-        <label htmlFor="className">Change class name</label>
+        <label htmlFor="name">Change name</label>
         <input 
           type="text"
-          value={this.state.className}
-          onChange={this.classNameHandler}
+          value={this.state.name}
+          onChange={this.nameHandler}
           required />
           <br />
-        <label htmlFor="schoolYear">Change school year</label>
+        <label htmlFor="classroom">Change classroom</label>
         <input 
           type="text"
-          value={this.state.schoolYear}
-          onChange={this.schoolYearHandler}
+          value={this.state.classroom}
+          onChange={this.classroomHandler}
           required />
           <br />
         <button
-        value="Save update"
+        value="Save  updated department"
 			onClick={() => this.handleEdit()}
         >Save edited/changed data!
         </button>
@@ -77,4 +76,4 @@ class EditClass extends Component {
         )
         }
 }
-export default EditClass;
+export default EditDepartment;
